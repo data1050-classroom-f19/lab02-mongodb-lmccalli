@@ -49,10 +49,11 @@ def load_taxi(file):
         d = row.to_dict()
         d['pickup_datetime'] = datetime.strptime(d['pickup_datetime'], '%Y-%m-%d %H:%M:%S %Z')
         arr.append(d.copy())
-
-    # TODO: insert `arr` into `db.taxi` and print the number of records inserted.
-    # Use load_airbnb as an example. This takes 2 lines of codes.
-
+    
+    
+    inserted_ids = db.airbnb.insert_many(arr).inserted_ids
+    print(len(inserted_ids), 'taxi files inserted')
+    #well after running the count is up to 98894
 
 if __name__ == "__main__":
     db = MongoClient().test
